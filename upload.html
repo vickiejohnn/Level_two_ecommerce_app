@@ -30,7 +30,7 @@
             <button class="btn btn-success w-100" id="uploadBtn">Upload Product</button>
         </div>
         <div class="form-group my-3">
-            <a href="dashboard.html">Go to Dashboard</a>
+            <a href="dashboard.html" class="btn btn-warning">Go to Dashboard</a>
         </div>
     </div>
 
@@ -39,6 +39,10 @@
     <script>
         let allProducts = []
 
+        if (localStorage.localProducts) {
+            let userProduct = JSON.parse(localStorage.getItem('localProducts'))
+            allProducts = userProduct
+        }
         document.getElementById('uploadBtn').addEventListener('click', ()=> {
             let productInfo = {
                 ProductName : productName.value,
@@ -52,11 +56,10 @@
                 productInfo.ProductImg = e.target.result
                 allProducts.push(productInfo)
                 localStorage.setItem('localProducts', JSON.stringify(allProducts))
-                console.log('Product image stored in local storage.')
                 window.location.href = 'dashboard.html'
             };
 
-            reader.readAsDataURL(productImg.files[0]);
+            reader.readAsDataURL(productImg.files[0])
         })
 
     </script>
